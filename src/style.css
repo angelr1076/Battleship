@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+
+:root {
+  --mukta: 'Mukta', sans-serif;
+  /* Primary color palette */
+  --white: #fff;
+  --black: #000;
+  --black-blur: #19222e;
+  --black-faded: #233142;
+  --charcoal: #455d7a;
+  --coral: #f95959;
+  --lightgray: #e3e3e3;
+  /* Secondary palette */
+  --vanilla: #f2ece4;
+  --brickblue: #b2c9d8;
+  --bluehover: #ccdfeb;
+  --salmon: rgba(250, 128, 114, 1);
+  --salmonlgt: rgba(250, 128, 114, 0.6);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+html {
+  font-family: var(--mukta);
+  text-transform: capitalize;
+}
