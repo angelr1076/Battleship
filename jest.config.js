@@ -1,6 +1,6 @@
 module.exports = {
   modulePaths: ['/shared/vendor/modules'],
-  moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['js', 'node'],
   moduleDirectories: ['node_modules', 'shared'],
 
   moduleNameMapper: {
