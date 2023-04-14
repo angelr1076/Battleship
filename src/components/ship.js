@@ -1,4 +1,4 @@
-function shipFactory(length) {
+const createShip = length => {
   const ship = {
     length,
     hits: 0,
@@ -10,6 +10,6 @@ function shipFactory(length) {
     },
   };
   return ship;
-}
+};
 
-export { shipFactory };
+export { createShip };
