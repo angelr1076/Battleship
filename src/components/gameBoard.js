@@ -63,9 +63,4 @@ const createGameBoard = () => {
   };
 };
 
-// const gameboard = createGameBoard();
-// gameboard.placeShip(3, 8, 2, 'horizontal');
-// gameboard.placeShip(4, 5, 6, 'vertical');
-// gameboard.printBoard();
-
 export { createGameBoard };
