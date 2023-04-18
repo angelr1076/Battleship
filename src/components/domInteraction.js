@@ -32,6 +32,13 @@ const renderGameboards = (player1, player2) => {
   renderBoard(player2, '#player2-board');
 };
 
+const updateShipCells = (grid, ship) => {
+  for (const { x, y } of ship.positions) {
+    const cell = grid.querySelector(`[data-x="${x}"][data-y="${y}"]`);
+    cell.classList.add('ship');
+  }
+};
+
 const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const enemyGrid = document.querySelector('#player2-board .grid');
   const player1Grid = document.querySelector(playerGridSelector);
@@ -80,13 +87,13 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
       const x = parseInt(event.target.dataset.x);
       const y = parseInt(event.target.dataset.y);
       try {
-        player.gameboard.placeShip(
+        const ship = player.gameboard.placeShip(
           shipLengths[currentShipIndex],
           x,
           y,
           currentOrientation,
         );
-        event.target.classList.add('ship');
+        updateShipCells(player1Grid, ship);
         currentShipIndex++;
 
         if (currentShipIndex === shipLengths.length) {
