@@ -1,6 +1,6 @@
 import { createShip } from './ship';
 
-const createGameBoard = () => {
+const createGameboard = () => {
   const board = Array(10)
     .fill(null)
     .map(() => Array(10).fill(null));
@@ -38,8 +38,10 @@ const createGameBoard = () => {
   const receiveAttack = (x, y) => {
     if (board[x][y]) {
       board[x][y].hit();
+      return true; // Ship exists at these coordinates
     } else {
       missedAttacks.push({ x, y });
+      return false; // Ship doesn't exist at these coordinates
     }
   };
 
@@ -63,4 +65,4 @@ const createGameBoard = () => {
   };
 };
 
-export { createGameBoard };
+export { createGameboard };

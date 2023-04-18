@@ -1,4 +1,4 @@
-import './style.css';
+import '../src/styles/style.css';
+import { gameLoop } from './components/gameLoop';
 
-function myComponent() {}
-document.body.appendChild(myComponent());
+gameLoop();
