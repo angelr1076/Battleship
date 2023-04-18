@@ -9,30 +9,6 @@ const createGridElement = (player, x, y) => {
   cell.dataset.x = x;
   cell.dataset.y = y;
 
-  if (!player.isComputer) {
-    cell.addEventListener('click', () => {
-      if (!gameStarted) {
-        let shipSizes = shipLengths;
-        try {
-          player.gameboard.placeShip(
-            shipSizes[currentShipIndex],
-            x,
-            y,
-            currentOrientation,
-          );
-          cell.classList.add('ship');
-          currentShipIndex++;
-
-          if (currentShipIndex === shipSizes.length) {
-            gameStarted = true;
-          }
-        } catch (error) {
-          console.error(error.message);
-        }
-      }
-    });
-  }
-
   return cell;
 };
 
