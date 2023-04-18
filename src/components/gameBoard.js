@@ -9,17 +9,26 @@ const createGameboard = () => {
 
   const placeShip = (length, x, y, orientation) => {
     const ship = createShip(length);
-    ships.push(ship);
 
-    // Prevent ships from overlapping
-    if (board[x][y] !== null) {
+    const canPlaceShip = (x, y, length, orientation) => {
+      if (orientation === 'horizontal') {
+        for (let i = 0; i < length; i++) {
+          if (y + i >= 10 || board[x][y + i] !== null) {
+            return false;
+          }
+        }
+      } else {
+        for (let i = 0; i < length; i++) {
+          if (x + i >= 10 || board[x + i][y] !== null) {
+            return false;
+          }
+        }
+      }
+      return true;
+    };
+
+    if (!canPlaceShip(x, y, length, orientation)) {
       throw new Error('Ship already exists at this location');
-    } else if (
-      (orientation === 'horizontal' && y + length > 10) ||
-      (orientation === 'vertical' && x + length > 10)
-    ) {
-      // Prevent ships from going off the board
-      throw new Error('Ship cannot go off the board');
     } else if (orientation === 'horizontal') {
       for (let i = 0; i < length; i++) {
         board[x][y + i] = ship;
@@ -33,6 +42,8 @@ const createGameboard = () => {
         "Invalid orientation. Must be 'horizontal' or 'vertical'.",
       );
     }
+
+    ships.push(ship);
   };
 
   const receiveAttack = (x, y) => {

@@ -1,8 +1,38 @@
+let currentShipIndex = 0;
+let currentOrientation = 'horizontal';
+let gameStarted = false;
+const shipLengths = [4, 3, 2];
+
 const createGridElement = (player, x, y) => {
   const cell = document.createElement('div');
   cell.classList.add('cell');
   cell.dataset.x = x;
   cell.dataset.y = y;
+
+  if (!player.isComputer) {
+    cell.addEventListener('click', () => {
+      if (!gameStarted) {
+        let shipSizes = shipLengths;
+        try {
+          player.gameboard.placeShip(
+            shipSizes[currentShipIndex],
+            x,
+            y,
+            currentOrientation,
+          );
+          cell.classList.add('ship');
+          currentShipIndex++;
+
+          if (currentShipIndex === shipSizes.length) {
+            gameStarted = true;
+          }
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+    });
+  }
+
   return cell;
 };
 
@@ -28,7 +58,7 @@ const renderGameboards = (player1, player2) => {
 
 const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const enemyGrid = document.querySelector('#player2-board .grid');
-  const playerGrid = document.querySelector(playerGridSelector);
+  const player1Grid = document.querySelector(playerGridSelector);
 
   enemyGrid.addEventListener('click', event => {
     if (event.target.classList.contains('cell')) {
@@ -53,7 +83,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
         } else {
           setTimeout(() => {
             const { x, y, attackResult } = enemy.attack(player.gameboard);
-            const playerCell = playerGrid.querySelector(
+            const playerCell = player1Grid.querySelector(
               `[data-x="${x}"][data-y="${y}"]`,
             );
             playerCell.classList.add('attacked');
@@ -68,6 +98,112 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
       }
     }
   });
+
+  player1Grid.addEventListener('click', event => {
+    if (!gameStarted && event.target.classList.contains('cell')) {
+      const x = parseInt(event.target.dataset.x);
+      const y = parseInt(event.target.dataset.y);
+      try {
+        player.gameboard.placeShip(
+          shipLengths[currentShipIndex],
+          x,
+          y,
+          currentOrientation,
+        );
+        event.target.classList.add('ship');
+        currentShipIndex++;
+
+        if (currentShipIndex === shipLengths.length) {
+          gameStarted = true;
+          alert('All ships placed! Game started.');
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  });
+
+  player1Grid.addEventListener('mouseover', event => {
+    if (!gameStarted && event.target.classList.contains('cell')) {
+      const x = parseInt(event.target.dataset.x);
+      const y = parseInt(event.target.dataset.y);
+      previewShipPlacement(
+        player1Grid,
+        x,
+        y,
+        shipLengths[currentShipIndex],
+        currentOrientation,
+      );
+    }
+  });
+
+  player1Grid.addEventListener('mouseout', event => {
+    if (!gameStarted && event.target.classList.contains('cell')) {
+      const x = parseInt(event.target.dataset.x);
+      const y = parseInt(event.target.dataset.y);
+      removeShipPlacementPreview(
+        player1Grid,
+        x,
+        y,
+        shipLengths[currentShipIndex],
+        currentOrientation,
+      );
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (
+      !gameStarted &&
+      (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+    ) {
+      currentOrientation =
+        currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+    }
+  });
+
+  const addShipPreviewClass = (cell, add) => {
+    if (add) {
+      cell.classList.add('ship-preview');
+    } else {
+      cell.classList.remove('ship-preview');
+    }
+  };
+
+  const previewShipPlacement = (grid, x, y, length, orientation) => {
+    if (orientation === 'horizontal') {
+      for (let i = 0; i < length; i++) {
+        if (y + i < 10) {
+          const cell = grid.querySelector(`[data-x="${x}"][data-y="${y + i}"]`);
+          addShipPreviewClass(cell, true);
+        }
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        if (x + i < 10) {
+          const cell = grid.querySelector(`[data-x="${x + i}"][data-y="${y}"]`);
+          addShipPreviewClass(cell, true);
+        }
+      }
+    }
+  };
+
+  const removeShipPlacementPreview = (grid, x, y, length, orientation) => {
+    if (orientation === 'horizontal') {
+      for (let i = 0; i < length; i++) {
+        if (y + i < 10) {
+          const cell = grid.querySelector(`[data-x="${x}"][data-y="${y + i}"]`);
+          addShipPreviewClass(cell, false);
+        }
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        if (x + i < 10) {
+          const cell = grid.querySelector(`[data-x="${x + i}"][data-y="${y}"]`);
+          addShipPreviewClass(cell, false);
+        }
+      }
+    }
+  };
 };
 
 export { renderGameboards, setupClickHandlers };

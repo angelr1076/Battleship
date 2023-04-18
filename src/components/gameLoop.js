@@ -8,9 +8,9 @@ const gameLoop = () => {
   const player2 = createPlayer('Player 2', true);
 
   // Set up gameboards with predetermined coordinates to test
-  player1.gameboard.placeShip(4, 0, 0, 'horizontal');
-  player1.gameboard.placeShip(3, 2, 5, 'horizontal');
-  player1.gameboard.placeShip(2, 5, 8, 'vertical');
+  // player1.gameboard.placeShip(4, 0, 0, 'horizontal');
+  // player1.gameboard.placeShip(3, 2, 5, 'horizontal');
+  // player1.gameboard.placeShip(2, 5, 8, 'vertical');
 
   player2.gameboard.placeShip(4, 1, 1, 'horizontal');
   player2.gameboard.placeShip(3, 3, 6, 'horizontal');
