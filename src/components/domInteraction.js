@@ -32,6 +32,10 @@ const renderGameboards = (player1, player2) => {
   renderBoard(player2, '#player2-board');
 };
 
+const getCurrentlyHoveredCell = grid => {
+  return grid.querySelector('.cell:hover');
+};
+
 const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const enemyGrid = document.querySelector('#player2-board .grid');
   const player1Grid = document.querySelector(playerGridSelector);
@@ -99,44 +103,6 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
     }
   });
 
-  player1Grid.addEventListener('mouseover', event => {
-    if (!gameStarted && event.target.classList.contains('cell')) {
-      const x = parseInt(event.target.dataset.x);
-      const y = parseInt(event.target.dataset.y);
-      previewShipPlacement(
-        player1Grid,
-        x,
-        y,
-        shipLengths[currentShipIndex],
-        currentOrientation,
-      );
-    }
-  });
-
-  player1Grid.addEventListener('mouseout', event => {
-    if (!gameStarted && event.target.classList.contains('cell')) {
-      const x = parseInt(event.target.dataset.x);
-      const y = parseInt(event.target.dataset.y);
-      removeShipPlacementPreview(
-        player1Grid,
-        x,
-        y,
-        shipLengths[currentShipIndex],
-        currentOrientation,
-      );
-    }
-  });
-
-  document.addEventListener('keydown', event => {
-    if (
-      !gameStarted &&
-      (event.key === 'ArrowUp' || event.key === 'ArrowDown')
-    ) {
-      currentOrientation =
-        currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
-    }
-  });
-
   const addShipPreviewClass = (cell, add) => {
     if (add) {
       cell.classList.add('ship-preview');
@@ -180,6 +146,78 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
       }
     }
   };
+
+  const initPreviewHandlers = player1Grid => {
+    player1Grid.addEventListener('mouseover', event => {
+      if (!gameStarted && event.target.classList.contains('cell')) {
+        const x = parseInt(event.target.dataset.x);
+        const y = parseInt(event.target.dataset.y);
+        previewShipPlacement(
+          player1Grid,
+          x,
+          y,
+          shipLengths[currentShipIndex],
+          currentOrientation,
+        );
+      }
+    });
+
+    player1Grid.addEventListener('mouseout', event => {
+      if (!gameStarted && event.target.classList.contains('cell')) {
+        const x = parseInt(event.target.dataset.x);
+        const y = parseInt(event.target.dataset.y);
+        removeShipPlacementPreview(
+          player1Grid,
+          x,
+          y,
+          shipLengths[currentShipIndex],
+          currentOrientation,
+        );
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (
+        !gameStarted &&
+        (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+      ) {
+        const hoveredCell = getCurrentlyHoveredCell(player1Grid);
+        if (hoveredCell) {
+          const x = parseInt(hoveredCell.dataset.x);
+          const y = parseInt(hoveredCell.dataset.y);
+
+          // Remove the previous ship placement preview
+          removeShipPlacementPreview(
+            player1Grid,
+            x,
+            y,
+            shipLengths[currentShipIndex],
+            currentOrientation,
+          );
+        }
+
+        // Change the orientation
+        currentOrientation =
+          currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+
+        if (hoveredCell) {
+          const x = parseInt(hoveredCell.dataset.x);
+          const y = parseInt(hoveredCell.dataset.y);
+
+          // Add the new ship placement preview
+          previewShipPlacement(
+            player1Grid,
+            x,
+            y,
+            shipLengths[currentShipIndex],
+            currentOrientation,
+          );
+        }
+      }
+    });
+  };
+
+  initPreviewHandlers(player1Grid);
 };
 
 export { renderGameboards, setupClickHandlers };
