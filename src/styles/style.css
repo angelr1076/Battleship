@@ -35,12 +35,6 @@ html {
   text-transform: capitalize;
 }
 
-/* .container {
-  display: flex;
-  justify-content: center;
-  gap: 2em;
-} */
-
 .grid {
   display: grid;
   grid-template-columns: repeat(10, 30px);
@@ -56,6 +50,10 @@ html {
 
 .cell.ship-preview {
   background-color: lightgreen;
+}
+
+.cell.ship-placed {
+  background-color: rgb(29, 123, 29);
 }
 
 .cell.hit {

@@ -90,7 +90,25 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           y,
           currentOrientation,
         );
-        event.target.classList.add('ship');
+
+        // Add the ship-placed class to highlight the entire ship
+        for (let i = 0; i < shipLengths[currentShipIndex]; i++) {
+          let targetCell;
+          if (currentOrientation === 'horizontal') {
+            targetCell = player1Grid.querySelector(
+              `[data-x="${x}"][data-y="${y + i}"]`,
+            );
+          } else {
+            targetCell = player1Grid.querySelector(
+              `[data-x="${x + i}"][data-y="${y}"]`,
+            );
+          }
+
+          if (targetCell) {
+            targetCell.classList.add('ship-placed');
+          }
+        }
+
         currentShipIndex++;
 
         if (currentShipIndex === shipLengths.length) {
@@ -177,10 +195,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
     });
 
     document.addEventListener('keydown', event => {
-      if (
-        !gameStarted &&
-        (event.key === 'ArrowUp' || event.key === 'ArrowDown')
-      ) {
+      if (!gameStarted && event.key === ' ') {
         const hoveredCell = getCurrentlyHoveredCell(player1Grid);
         if (hoveredCell) {
           const x = parseInt(hoveredCell.dataset.x);

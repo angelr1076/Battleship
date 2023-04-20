@@ -11,15 +11,19 @@ const createGameboard = () => {
     const ship = createShip(length);
 
     const canPlaceShip = (x, y, length, orientation) => {
+      if (x < 0 || y < 0 || x >= board.length || y >= board.length) {
+        return false;
+      }
+
       if (orientation === 'horizontal') {
         for (let i = 0; i < length; i++) {
-          if (y + i >= 10 || board[x][y + i] !== null) {
+          if (y + i >= board.length || board[x][y + i] !== null) {
             return false;
           }
         }
       } else {
         for (let i = 0; i < length; i++) {
-          if (x + i >= 10 || board[x + i][y] !== null) {
+          if (x + i >= board.length || board[x + i][y] !== null) {
             return false;
           }
         }
@@ -28,7 +32,7 @@ const createGameboard = () => {
     };
 
     if (!canPlaceShip(x, y, length, orientation)) {
-      throw new Error('Ship already exists at this location');
+      throw new Error('Cannot place ship at this location');
     } else if (orientation === 'horizontal') {
       for (let i = 0; i < length; i++) {
         board[x][y + i] = ship;
