@@ -196,6 +196,8 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
     document.addEventListener('keydown', event => {
       if (!gameStarted && event.key === ' ') {
+        event.preventDefault(); // Add this line to prevent the default behavior of the spacebar
+
         const hoveredCell = getCurrentlyHoveredCell(player1Grid);
         if (hoveredCell) {
           const x = parseInt(hoveredCell.dataset.x);
@@ -228,6 +230,34 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             currentOrientation,
           );
         }
+      }
+    });
+
+    const changeOrientationBtn = document.getElementById('changeOriention');
+    changeOrientationBtn.addEventListener('click', () => {
+      currentOrientation =
+        currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+
+      const hoveredCell = getCurrentlyHoveredCell(player1Grid);
+      if (hoveredCell && !gameStarted) {
+        const x = parseInt(hoveredCell.dataset.x);
+        const y = parseInt(hoveredCell.dataset.y);
+
+        removeShipPlacementPreview(
+          player1Grid,
+          x,
+          y,
+          shipLengths[currentShipIndex],
+          currentOrientation === 'horizontal' ? 'vertical' : 'horizontal',
+        );
+
+        previewShipPlacement(
+          player1Grid,
+          x,
+          y,
+          shipLengths[currentShipIndex],
+          currentOrientation,
+        );
       }
     });
   };
