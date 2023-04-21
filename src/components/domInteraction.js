@@ -1,7 +1,8 @@
 let currentShipIndex = 0;
 let currentOrientation = 'horizontal';
 let gameStarted = false;
-const shipLengths = [4, 3, 2];
+
+const shipLengths = [5, 4, 3, 3, 2, 1];
 
 const createGridElement = (player, x, y) => {
   const cell = document.createElement('div');
@@ -196,14 +197,13 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
     document.addEventListener('keydown', event => {
       if (!gameStarted && event.key === ' ') {
-        event.preventDefault(); // Add this line to prevent the default behavior of the spacebar
+        event.preventDefault();
 
         const hoveredCell = getCurrentlyHoveredCell(player1Grid);
         if (hoveredCell) {
           const x = parseInt(hoveredCell.dataset.x);
           const y = parseInt(hoveredCell.dataset.y);
 
-          // Remove the previous ship placement preview
           removeShipPlacementPreview(
             player1Grid,
             x,
@@ -213,7 +213,6 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           );
         }
 
-        // Change the orientation
         currentOrientation =
           currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
 
@@ -221,7 +220,6 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           const x = parseInt(hoveredCell.dataset.x);
           const y = parseInt(hoveredCell.dataset.y);
 
-          // Add the new ship placement preview
           previewShipPlacement(
             player1Grid,
             x,
@@ -265,4 +263,4 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   initPreviewHandlers(player1Grid);
 };
 
-export { renderGameboards, setupClickHandlers };
+export { gameStarted, shipLengths, renderGameboards, setupClickHandlers };

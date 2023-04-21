@@ -2,6 +2,12 @@
 import { createPlayer } from './player';
 import { renderGameboards, setupClickHandlers } from './domInteraction';
 
+// A single ship five squares long (the aircraft carrier)
+// A single ship four squares long (the battleship)
+// Two ships three squares long (the cruiser and the submarine)
+// A single ship two squares long (the destroyer)
+// A single ship one square long (the patrol boat)
+
 const gameLoop = () => {
   // Create players
   const player1 = createPlayer('Player 1');
