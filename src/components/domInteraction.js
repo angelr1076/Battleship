@@ -263,4 +263,4 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   initPreviewHandlers(player1Grid);
 };
 
-export { gameStarted, shipLengths, renderGameboards, setupClickHandlers };
+export { shipLengths, renderGameboards, setupClickHandlers };

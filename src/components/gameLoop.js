@@ -1,26 +1,40 @@
 // gameLoop.js
 import { createPlayer } from './player';
-import { renderGameboards, setupClickHandlers } from './domInteraction';
+import {
+  shipLengths,
+  renderGameboards,
+  setupClickHandlers,
+} from './domInteraction';
 
-// A single ship five squares long (the aircraft carrier)
-// A single ship four squares long (the battleship)
-// Two ships three squares long (the cruiser and the submarine)
-// A single ship two squares long (the destroyer)
-// A single ship one square long (the patrol boat)
+const placeRandomShips = (player, shipLengths) => {
+  const orientations = ['horizontal', 'vertical'];
+
+  for (const shipLength of shipLengths) {
+    let placed = false;
+
+    while (!placed) {
+      const x = Math.floor(Math.random() * 10);
+      const y = Math.floor(Math.random() * 10);
+      const orientation =
+        orientations[Math.floor(Math.random() * orientations.length)];
+
+      try {
+        player.gameboard.placeShip(shipLength, x, y, orientation);
+        placed = true;
+      } catch (error) {
+        // Ignore the error and try again with a different position and/or orientation
+      }
+    }
+  }
+};
 
 const gameLoop = () => {
   // Create players
   const player1 = createPlayer('Player 1');
   const player2 = createPlayer('Player 2', true);
 
-  // Set up gameboards with predetermined coordinates to test
-  // player1.gameboard.placeShip(4, 0, 0, 'horizontal');
-  // player1.gameboard.placeShip(3, 2, 5, 'horizontal');
-  // player1.gameboard.placeShip(2, 5, 8, 'vertical');
-
-  player2.gameboard.placeShip(4, 1, 1, 'horizontal');
-  player2.gameboard.placeShip(3, 3, 6, 'horizontal');
-  player2.gameboard.placeShip(2, 6, 2, 'vertical');
+  placeRandomShips(player2, shipLengths);
+  console.log({ player2, shipLengths });
 
   // Render gameboards
   renderGameboards(player1, player2);
