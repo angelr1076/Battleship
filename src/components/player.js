@@ -1,5 +1,17 @@
 import { createGameboard } from './gameBoard';
 
+const shipsObj = {
+  names: [
+    'Carrier',
+    'Battleship',
+    'Cruiser',
+    'Submarine',
+    'Destroyer',
+    'Patrol Boat',
+  ],
+  lengths: [5, 4, 3, 3, 2, 1],
+};
+
 const createPlayer = (name, isComputer = false) => {
   const gameboard = createGameboard();
   const previousAttacks = new Set();
@@ -38,4 +50,4 @@ const createPlayer = (name, isComputer = false) => {
   };
 };
 
-export { createPlayer };
+export { shipsObj, createPlayer };

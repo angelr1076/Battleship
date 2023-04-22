@@ -7,8 +7,8 @@ const createGameboard = () => {
   const ships = [];
   const missedAttacks = [];
 
-  const placeShip = (length, x, y, orientation) => {
-    const ship = createShip(length);
+  const placeShip = (length, name, x, y, orientation) => {
+    const ship = createShip(length, name);
 
     const canPlaceShip = (x, y, length, orientation) => {
       if (x < 0 || y < 0 || x >= board.length || y >= board.length) {

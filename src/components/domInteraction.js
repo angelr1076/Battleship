@@ -1,8 +1,8 @@
+import { shipsObj } from './player';
+
 let currentShipIndex = 0;
 let currentOrientation = 'horizontal';
 let gameStarted = false;
-
-const shipLengths = [5, 4, 3, 3, 2, 1];
 
 const createGridElement = (player, x, y) => {
   const cell = document.createElement('div');
@@ -40,6 +40,8 @@ const getCurrentlyHoveredCell = grid => {
 const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const enemyGrid = document.querySelector('#player2-board .grid');
   const player1Grid = document.querySelector(playerGridSelector);
+  const msg = document.querySelector('#message');
+  const { lengths, names } = shipsObj;
 
   enemyGrid.addEventListener('click', event => {
     if (event.target.classList.contains('cell')) {
@@ -84,16 +86,21 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
     if (!gameStarted && event.target.classList.contains('cell')) {
       const x = parseInt(event.target.dataset.x);
       const y = parseInt(event.target.dataset.y);
+
       try {
         player.gameboard.placeShip(
-          shipLengths[currentShipIndex],
+          lengths[currentShipIndex],
+          shipsObj.names[currentShipIndex],
           x,
           y,
           currentOrientation,
         );
 
+        // Log the name of the placed ship
+        msg.textContent = `Placed ship: ${names[currentShipIndex]}`;
+
         // Add the ship-placed class to highlight the entire ship
-        for (let i = 0; i < shipLengths[currentShipIndex]; i++) {
+        for (let i = 0; i < lengths[currentShipIndex]; i++) {
           let targetCell;
           if (currentOrientation === 'horizontal') {
             targetCell = player1Grid.querySelector(
@@ -112,10 +119,18 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
         currentShipIndex++;
 
-        if (currentShipIndex === shipLengths.length) {
-          gameStarted = true;
-          alert('All ships placed! Game started.');
-        }
+        setTimeout(() => {
+          if (
+            currentShipIndex === lengths.length &&
+            msg.textContent === 'Placed ship: Patrol Boat'
+          ) {
+            gameStarted = true;
+            msg.textContent = `All ships placed! Game started.`;
+            setTimeout(() => {
+              msg.textContent = 'Game in session...';
+            }, 2000);
+          }
+        }, 3000);
       } catch (error) {
         alert(error.message);
       }
@@ -175,7 +190,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           player1Grid,
           x,
           y,
-          shipLengths[currentShipIndex],
+          lengths[currentShipIndex],
           currentOrientation,
         );
       }
@@ -189,7 +204,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           player1Grid,
           x,
           y,
-          shipLengths[currentShipIndex],
+          lengths[currentShipIndex],
           currentOrientation,
         );
       }
@@ -208,7 +223,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             player1Grid,
             x,
             y,
-            shipLengths[currentShipIndex],
+            lengths[currentShipIndex],
             currentOrientation,
           );
         }
@@ -224,7 +239,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             player1Grid,
             x,
             y,
-            shipLengths[currentShipIndex],
+            lengths[currentShipIndex],
             currentOrientation,
           );
         }
@@ -245,7 +260,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           player1Grid,
           x,
           y,
-          shipLengths[currentShipIndex],
+          lengths[currentShipIndex],
           currentOrientation === 'horizontal' ? 'vertical' : 'horizontal',
         );
 
@@ -253,7 +268,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           player1Grid,
           x,
           y,
-          shipLengths[currentShipIndex],
+          lengths[currentShipIndex],
           currentOrientation,
         );
       }
@@ -263,4 +278,4 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   initPreviewHandlers(player1Grid);
 };
 
-export { shipLengths, renderGameboards, setupClickHandlers };
+export { shipsObj, renderGameboards, setupClickHandlers };

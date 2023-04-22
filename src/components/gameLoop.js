@@ -1,15 +1,14 @@
 // gameLoop.js
-import { createPlayer } from './player';
-import {
-  shipLengths,
-  renderGameboards,
-  setupClickHandlers,
-} from './domInteraction';
+import { shipsObj, createPlayer } from './player';
+import { renderGameboards, setupClickHandlers } from './domInteraction';
 
-const placeRandomShips = (player, shipLengths) => {
+const placeRandomShips = (player, shipObj) => {
   const orientations = ['horizontal', 'vertical'];
+  const { lengths } = shipObj;
 
-  for (const shipLength of shipLengths) {
+  for (let i = 0; i < lengths.length; i++) {
+    const shipLength = shipsObj.lengths[i];
+    const shipName = shipsObj.names[i];
     let placed = false;
 
     while (!placed) {
@@ -19,7 +18,7 @@ const placeRandomShips = (player, shipLengths) => {
         orientations[Math.floor(Math.random() * orientations.length)];
 
       try {
-        player.gameboard.placeShip(shipLength, x, y, orientation);
+        player.gameboard.placeShip(shipLength, shipName, x, y, orientation);
         placed = true;
       } catch (error) {
         // Ignore the error and try again with a different position and/or orientation
@@ -33,8 +32,8 @@ const gameLoop = () => {
   const player1 = createPlayer('Player 1');
   const player2 = createPlayer('Player 2', true);
 
-  placeRandomShips(player2, shipLengths);
-  console.log({ player2, shipLengths });
+  placeRandomShips(player2, shipsObj);
+  console.log({ player2 });
 
   // Render gameboards
   renderGameboards(player1, player2);
