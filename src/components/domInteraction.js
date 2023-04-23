@@ -109,7 +109,6 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
         // Log the name of the placed ship
         showMessage(`Placed ship: ${names[currentShipIndex]}`, msg, 2000);
 
-        // Add the ship-placed class to highlight the entire ship
         for (let i = 0; i < lengths[currentShipIndex]; i++) {
           let targetCell;
           if (currentOrientation === 'horizontal') {
@@ -123,6 +122,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           }
 
           if (targetCell) {
+            // Add the ship-placed class to highlight the entire ship
             targetCell.classList.add('ship-placed');
           }
         }
