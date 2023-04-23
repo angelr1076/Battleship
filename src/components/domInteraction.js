@@ -1,4 +1,5 @@
 import { shipsObj } from './player';
+import { showMessage } from './helpers';
 
 let currentShipIndex = 0;
 let currentOrientation = 'horizontal';
@@ -37,15 +38,6 @@ const getCurrentlyHoveredCell = grid => {
   return grid.querySelector('.cell:hover');
 };
 
-const showMessage = (message, element, duration) => {
-  element.innerText = message;
-  element.style.display = 'block';
-
-  setTimeout(() => {
-    element.style.display = 'none';
-  }, duration);
-};
-
 const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const enemyGrid = document.querySelector('#player2-board .grid');
   const player1Grid = document.querySelector(playerGridSelector);
@@ -53,6 +45,11 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const { lengths, names } = shipsObj;
 
   enemyGrid.addEventListener('click', event => {
+    if (!player.allShipsPlaced()) {
+      showMessage('Place your ships before starting the game!', msg, 2000);
+      return;
+    }
+
     if (event.target.classList.contains('cell')) {
       const x = event.target.dataset.x;
       const y = event.target.dataset.y;
@@ -136,7 +133,6 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           ) {
             gameStarted = true;
             msg.textContent = `All ships placed! Game started.`;
-            // showMessage('Game in session.', msg, 2000);
           }
         }, 3000);
       } catch (error) {

@@ -11,6 +11,7 @@
   --black-faded: #233142;
   --charcoal: #455d7a;
   --coral: #f95959;
+  --darkgray: #838383;
   --lightgray: #e3e3e3;
   /* Secondary palette */
   --vanilla: #f2ece4;
@@ -144,15 +145,15 @@ h2 {
 }
 
 .cell.ship-placed {
-  background-color: darkgray;
+  background-color: var(--darkgray);
 }
 
 .cell.hit {
-  background-color: red;
+  background-color: var(--coral);
 }
 
 .attacked {
-  background-color: #eee;
+  background-color: var(--black-faded);
 }
 
 .hide {

@@ -1,5 +1,5 @@
 import { createGameboard } from './gameBoard';
-import { showMessage } from './domInteraction';
+import { showMessage } from './helpers';
 
 const shipsObj = {
   names: [
@@ -16,6 +16,7 @@ const shipsObj = {
 const createPlayer = (name, isComputer = false) => {
   const gameboard = createGameboard();
   const previousAttacks = new Set();
+  const { lengths } = shipsObj;
 
   const getRandomCoordinate = () => {
     return Math.floor(Math.random() * 10);
@@ -45,6 +46,10 @@ const createPlayer = (name, isComputer = false) => {
     return enemyGameboard.receiveAttack(x, y);
   };
 
+  const allShipsPlaced = () => {
+    return gameboard.ships.length === lengths.length;
+  };
+
   const makeMove = isComputer ? aiAttack : attack;
 
   return {
@@ -52,6 +57,7 @@ const createPlayer = (name, isComputer = false) => {
     gameboard,
     attack: makeMove,
     isComputer,
+    allShipsPlaced,
   };
 };
 
