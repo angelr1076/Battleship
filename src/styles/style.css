@@ -18,6 +18,8 @@
   --bluehover: #ccdfeb;
   --salmon: rgba(250, 128, 114, 1);
   --salmonlgt: rgba(250, 128, 114, 0.6);
+  --water: #0b4d67;
+  --aqua: #1eaec6;
 }
 
 *,
@@ -30,6 +32,13 @@
 
 li {
   list-style-type: none;
+}
+
+body {
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+  color: var(--white);
+  height: 100vh;
 }
 
 html {
@@ -99,6 +108,9 @@ h2 {
   grid-template-columns: repeat(10, 40px);
   grid-template-rows: repeat(10, 40px);
   gap: 1px;
+  background-color: var(--aqua);
+  border: 5px solid var(--black-faded);
+  border-radius: 5px;
 }
 
 .btn {
@@ -120,6 +132,7 @@ h2 {
   width: 40px;
   height: 40px;
   border: 1px solid #ccc;
+  background-color: var(--water);
 }
 
 .cell:hover {
