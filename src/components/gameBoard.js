@@ -53,7 +53,7 @@ const createGameboard = () => {
   const receiveAttack = (x, y) => {
     if (board[x][y]) {
       board[x][y].hit();
-      return true; // Ship exists at these coordinates
+      return board[x][y].name; // Return the name of the ship that was hit
     } else {
       missedAttacks.push({ x, y });
       return false; // Ship doesn't exist at these coordinates

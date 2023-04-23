@@ -37,6 +37,15 @@ const getCurrentlyHoveredCell = grid => {
   return grid.querySelector('.cell:hover');
 };
 
+const showMessage = (message, element, duration) => {
+  element.innerText = message;
+  element.style.display = 'block';
+
+  setTimeout(() => {
+    element.style.display = 'none';
+  }, duration);
+};
+
 const setupClickHandlers = (player, enemy, playerGridSelector) => {
   const enemyGrid = document.querySelector('#player2-board .grid');
   const player1Grid = document.querySelector(playerGridSelector);
@@ -59,6 +68,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
         if (attackResult) {
           event.target.classList.add('hit');
+          showMessage(`Enemy's ${attackResult} hit!`, msg, 1000);
         }
 
         if (enemy.gameboard.allShipsSunk()) {
@@ -97,7 +107,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
         );
 
         // Log the name of the placed ship
-        msg.textContent = `Placed ship: ${names[currentShipIndex]}`;
+        showMessage(`Placed ship: ${names[currentShipIndex]}`, msg, 2000);
 
         // Add the ship-placed class to highlight the entire ship
         for (let i = 0; i < lengths[currentShipIndex]; i++) {
@@ -126,9 +136,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           ) {
             gameStarted = true;
             msg.textContent = `All ships placed! Game started.`;
-            setTimeout(() => {
-              msg.textContent = 'Game in session...';
-            }, 2000);
+            // showMessage('Game in session.', msg, 2000);
           }
         }, 3000);
       } catch (error) {
@@ -278,4 +286,4 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   initPreviewHandlers(player1Grid);
 };
 
-export { shipsObj, renderGameboards, setupClickHandlers };
+export { shipsObj, showMessage, renderGameboards, setupClickHandlers };

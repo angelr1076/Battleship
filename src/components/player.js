@@ -1,4 +1,5 @@
 import { createGameboard } from './gameBoard';
+import { showMessage } from './domInteraction';
 
 const shipsObj = {
   names: [
@@ -27,6 +28,10 @@ const createPlayer = (name, isComputer = false) => {
       y = getRandomCoordinate();
     } while (previousAttacks.has(`${x},${y}`));
     const attackResult = attack(enemyGameboard, x, y);
+    const msg = document.querySelector('#message');
+    if (attackResult) {
+      showMessage(`Your ${attackResult}'s been hit!`, msg, 1000);
+    }
     return { x, y, attackResult };
   };
 
