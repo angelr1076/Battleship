@@ -19,6 +19,7 @@
   --bluehover: #ccdfeb;
   --salmon: rgba(250, 128, 114, 1);
   --salmonlgt: rgba(250, 128, 114, 0.6);
+  --red-gradient: linear-gradient(135deg, #f34079 40%, #fc894d);
   --water: #0b4d67;
   --aqua: #1eaec6;
 }
@@ -115,14 +116,19 @@ h2 {
 }
 
 .btn {
-  background-color: var(--black-faded);
-  color: var(--white);
+  width: 8em;
+  height: 5ex;
+  background-image: var(--red-gradient);
   border: none;
   border-radius: 5px;
-  padding: 0.5em 1em;
-  font-size: 1em;
-  font-weight: 600;
+  font-weight: bold;
+  color: white;
   cursor: pointer;
+}
+
+.btn:hover,
+.btn.reset:hover {
+  border: 2px solid var(--lightgray);
 }
 
 .btn.reset {
