@@ -20,6 +20,7 @@
   --salmon: rgba(250, 128, 114, 1);
   --salmonlgt: rgba(250, 128, 114, 0.6);
   --red-gradient: linear-gradient(135deg, #f34079 40%, #fc894d);
+  --red-transition: linear-gradient(135deg, #f90a56 40%, #fa5c06);
   --water: #0b4d67;
   --aqua: #1eaec6;
 }
@@ -122,8 +123,10 @@ h2 {
   border: none;
   border-radius: 5px;
   font-weight: bold;
-  color: white;
+  color: var(--white);
   cursor: pointer;
+
+  transition: background-image 0.3s ease;
 }
 
 .btn:hover,
@@ -133,6 +136,10 @@ h2 {
 
 .btn.reset {
   background-color: var(--coral);
+}
+
+.btn:active {
+  background-image: var(--red-transition);
 }
 
 .cell {
