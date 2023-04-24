@@ -35,6 +35,12 @@ const renderBoard = (player, containerSelector) => {
   const grid = document.createElement('div');
   grid.classList.add('grid');
 
+  // Display the ships sunk count
+  const shipsSunkCounter = document.createElement('div');
+  shipsSunkCounter.classList.add('ships-sunk-counter');
+  shipsSunkCounter.textContent = `Ships Sunk: 0`;
+  container.appendChild(shipsSunkCounter);
+
   for (let x = 0; x < 10; x++) {
     for (let y = 0; y < 10; y++) {
       const cell = createGridElement(player, x, y);
@@ -43,6 +49,7 @@ const renderBoard = (player, containerSelector) => {
   }
 
   container.appendChild(grid);
+
   updateBtnState();
 };
 
@@ -105,6 +112,13 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             if (player.gameboard.allShipsSunk()) {
               alert('Game Over! All ships have been sunk!');
             }
+
+            document.querySelector(
+              '#player1-board .ships-sunk-counter',
+            ).textContent = `Ships Sunk: ${player.gameboard.shipsSunkCount()}`;
+            document.querySelector(
+              '#player2-board .ships-sunk-counter',
+            ).textContent = `Ships Sunk: ${enemy.gameboard.shipsSunkCount()}`;
           }, 1000);
         }
       }

@@ -1,5 +1,5 @@
 import { createGameboard } from './gameBoard';
-import { showMsgTimed, showMsg } from './helpers';
+import { showMsgTimed } from './helpers';
 
 const shipsObj = {
   names: [

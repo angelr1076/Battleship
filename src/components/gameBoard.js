@@ -64,6 +64,10 @@ const createGameboard = () => {
     return ships.every(ship => ship.isSunk());
   };
 
+  const shipsSunkCount = () => {
+    return ships.filter(ship => ship.isSunk()).length;
+  };
+
   const printBoard = () => {
     const display = board.map(row => row.map(cell => (cell ? 's' : '.')));
     console.log(display.map(row => row.join(' ')).join('\n'));
@@ -76,6 +80,7 @@ const createGameboard = () => {
     placeShip,
     receiveAttack,
     allShipsSunk,
+    shipsSunkCount,
     printBoard,
   };
 };

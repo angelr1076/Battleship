@@ -178,6 +178,12 @@ h2 {
   background-color: var(--black-faded);
 }
 
+.ships-sunk-counter {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 5px 5px 0;
+}
+
 .hide {
   display: none;
 }
