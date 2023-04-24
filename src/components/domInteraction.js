@@ -81,8 +81,13 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
         event.target.classList.add('attacked');
 
         if (attackResult) {
+          const shipSunk = attackResult.ship.isSunk();
           event.target.classList.add('hit');
-          showMsgTimed(`Enemy's ${attackResult} hit!`, msg, 1000);
+          showMsgTimed(`Enemy's ${attackResult.name} hit!`, msg, 1000);
+
+          if (shipSunk) {
+            showMsgTimed(`Enemy's ${attackResult.name} sunk!`, msg, 1000);
+          }
         }
 
         if (enemy.gameboard.allShipsSunk()) {

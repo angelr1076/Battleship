@@ -31,7 +31,12 @@ const createPlayer = (name, isComputer = false) => {
     const attackResult = attack(enemyGameboard, x, y);
     const msg = document.querySelector('#message');
     if (attackResult) {
-      showMsgTimed(`Your ${attackResult}'s been hit!`, msg, 1000);
+      const shipSunk = attackResult.ship.isSunk();
+      showMsgTimed(`Your ${attackResult.name}'s been hit!`, msg, 1000);
+
+      if (shipSunk) {
+        showMsgTimed(`Your ${attackResult.name}'s been sunk!`, msg, 1000);
+      }
     }
     return { x, y, attackResult };
   };
