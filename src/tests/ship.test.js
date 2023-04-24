@@ -1,31 +1,34 @@
 import { createShip } from '../components/ship';
 
-describe('Ship factory function tests', () => {
-  it('should have a length of 3', () => {
-    const ship = createShip(3);
-    expect(ship.length).toBe(3);
+describe('createShip', () => {
+  it('creates a ship object with the given length and name', () => {
+    const ship = createShip(4, 'Battleship');
+    expect(ship.length).toBe(4);
+    expect(ship.name).toBe('Battleship');
   });
 
-  it('should have a hit count of 0', () => {
-    const ship = createShip(3);
+  it('creates a ship object with hits equal to 0 initially', () => {
+    const ship = createShip(4, 'Battleship');
     expect(ship.hits).toBe(0);
   });
 
-  it('should have a hit count of 1', () => {
-    const ship = createShip(3);
+  it('increments hits when hit method is called', () => {
+    const ship = createShip(3, 'Cruiser');
     ship.hit();
-    expect(ship.hits).toBe(1);
+    ship.hit();
+    expect(ship.hits).toBe(2);
   });
 
-  it('should have a sink status of false', () => {
-    const ship = createShip(3);
+  it('returns true when the ship is sunk', () => {
+    const ship = createShip(2, 'Destroyer');
     ship.hit();
-    expect(ship.isSunk()).toBe(false);
-  });
-
-  it('should have a sink status of true', () => {
-    const ship = createShip(1);
     ship.hit();
     expect(ship.isSunk()).toBe(true);
+  });
+
+  it('returns false when the ship is not sunk', () => {
+    const ship = createShip(2, 'Destroyer');
+    ship.hit();
+    expect(ship.isSunk()).toBe(false);
   });
 });

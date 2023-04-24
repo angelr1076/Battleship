@@ -33,7 +33,6 @@ const gameLoop = () => {
   const player2 = createPlayer('Player 2', true);
 
   placeRandomShips(player2, shipsObj);
-  console.log({ player2 });
 
   // Render gameboards
   renderGameboards(player1, player2);

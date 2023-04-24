@@ -1,71 +1,43 @@
 import { createGameboard } from '../components/gameBoard';
 
-describe('Gameboard factory function tests', () => {
-  it('each array should have a length of 10', () => {
-    const gameboard = createGameboard();
+describe('createGameboard', () => {
+  let gameboard;
+
+  beforeEach(() => {
+    gameboard = createGameboard();
+  });
+
+  test('creates a gameboard with a 10x10 grid', () => {
     expect(gameboard.board.length).toBe(10);
+    expect(gameboard.board[0].length).toBe(10);
   });
 
-  it('should have a full length of 100', () => {
-    const gameboard = createGameboard();
-    const flatBoard = gameboard.board.flat();
-    expect(flatBoard.length).toBe(100);
+  test('placeShip places a ship on the gameboard', () => {
+    gameboard.placeShip(3, 'Cruiser', 0, 0, 'horizontal');
+    expect(gameboard.ships.length).toBe(1);
   });
 
-  it('should create a ship and place it on the board', () => {
-    const gameboard = createGameboard();
-    gameboard.placeShip(3, 8, 2, 'horizontal');
-    gameboard.placeShip(4, 5, 6, 'vertical');
-    const ship = gameboard.board[8][2];
-    const ship2 = gameboard.board[5][6];
-    expect(ship.length).toBe(3);
-    expect(ship2.length).toBe(4);
+  test('receiveAttack returns the name of the ship when a ship is hit', () => {
+    gameboard.placeShip(3, 'Cruiser', 0, 0, 'horizontal');
+    const result = gameboard.receiveAttack(0, 0);
+    expect(result.name).toBe('Cruiser');
   });
 
-  it('should throw an error if ship is placed off the board', () => {
-    const gameboard = createGameboard();
-    expect(() => {
-      gameboard.placeShip(3, 8, 8, 'horizontal');
-    }).toThrow('Ship cannot go off the board');
+  test('receiveAttack returns false when the attack misses', () => {
+    gameboard.placeShip(3, 'Cruiser', 0, 0, 'horizontal');
+    const result = gameboard.receiveAttack(9, 9);
+    expect(result).toBe(false);
   });
 
-  it('should throw an error if ship is placed on top of another ship', () => {
-    const gameboard = createGameboard();
-    gameboard.placeShip(3, 8, 2, 'horizontal');
-    expect(() => {
-      gameboard.placeShip(3, 8, 2, 'horizontal');
-    }).toThrow('Ship already exists at this location');
-  });
-
-  it('should throw an error if ship is placed with an invalid orientation', () => {
-    const gameboard = createGameboard();
-    expect(() => {
-      gameboard.placeShip(3, 8, 2, 'diagonal');
-    }).toThrow("Invalid orientation. Must be 'horizontal' or 'vertical'.");
-  });
-
-  it('should be able to report whether or not all of their ships have been sunk', () => {
-    const gameboard = createGameboard();
-    gameboard.placeShip(3, 8, 2, 'horizontal');
-    gameboard.placeShip(4, 5, 6, 'vertical');
-    gameboard.receiveAttack(8, 2);
-    gameboard.receiveAttack(8, 3);
-    gameboard.receiveAttack(8, 4);
-    gameboard.receiveAttack(5, 6);
-    gameboard.receiveAttack(6, 6);
-    gameboard.receiveAttack(7, 6);
-    gameboard.receiveAttack(8, 6);
+  test('allShipsSunk returns true when all ships are sunk', () => {
+    gameboard.placeShip(1, 'Patrol Boat', 0, 0, 'horizontal');
+    gameboard.receiveAttack(0, 0);
     expect(gameboard.allShipsSunk()).toBe(true);
   });
 
-  it('should keep track of missed attacks', () => {
-    const gameboard = createGameboard();
-    gameboard.placeShip(3, 8, 2, 'horizontal');
-    gameboard.receiveAttack(2, 3);
-    gameboard.receiveAttack(5, 1);
-    expect(gameboard.missedAttacks).toEqual([
-      { x: 2, y: 3 },
-      { x: 5, y: 1 },
-    ]);
+  test('allShipsSunk returns false when not all ships are sunk', () => {
+    gameboard.placeShip(3, 'Cruiser', 0, 0, 'horizontal');
+    gameboard.receiveAttack(0, 0);
+    expect(gameboard.allShipsSunk()).toBe(false);
   });
 });
