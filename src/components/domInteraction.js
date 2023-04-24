@@ -1,5 +1,5 @@
 import { shipsObj } from './player';
-import { showMessage } from './helpers';
+import { showMsgTimed, showMsg } from './helpers';
 
 let currentShipIndex = 0;
 let currentOrientation = 'horizontal';
@@ -16,6 +16,20 @@ const createGridElement = (player, x, y) => {
   return cell;
 };
 
+const updateBtnState = () => {
+  const resetBtn = document.getElementById('reset');
+
+  if (!gameStarted) {
+    resetBtn.classList.add('disabled');
+    resetBtn.disabled = true;
+  } else {
+    changeOrientationBtn.classList.add('disabled');
+    resetBtn.classList.remove('disabled');
+    changeOrientationBtn.disabled = true;
+    resetBtn.disabled = false;
+  }
+};
+
 const renderBoard = (player, containerSelector) => {
   const container = document.querySelector(containerSelector);
   const grid = document.createElement('div');
@@ -29,6 +43,7 @@ const renderBoard = (player, containerSelector) => {
   }
 
   container.appendChild(grid);
+  updateBtnState();
 };
 
 const renderGameboards = (player1, player2) => {
@@ -48,7 +63,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
   enemyGrid.addEventListener('click', event => {
     if (!player.allShipsPlaced()) {
-      showMessage('Place your ships before starting the game!', msg, 2000);
+      showMsgTimed('Place your ships before starting the game!', msg, 1000);
       return;
     }
 
@@ -67,7 +82,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
         if (attackResult) {
           event.target.classList.add('hit');
-          showMessage(`Enemy's ${attackResult} hit!`, msg, 1000);
+          showMsgTimed(`Enemy's ${attackResult} hit!`, msg, 1000);
         }
 
         if (enemy.gameboard.allShipsSunk()) {
@@ -106,7 +121,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
         );
 
         // Log the name of the placed ship
-        showMessage(`Placed ship: ${names[currentShipIndex]}`, msg, 2000);
+        showMsg(`Placed ship: ${names[currentShipIndex]}`, msg);
 
         for (let i = 0; i < lengths[currentShipIndex]; i++) {
           let targetCell;
@@ -134,6 +149,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             msg.textContent === 'Placed ship: Patrol Boat'
           ) {
             gameStarted = true;
+            updateBtnState();
             msg.textContent = `All ships placed! Game started.`;
           }
         }, 3000);
@@ -285,4 +301,4 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   initPreviewHandlers(player1Grid);
 };
 
-export { shipsObj, showMessage, renderGameboards, setupClickHandlers };
+export { shipsObj, showMsgTimed, renderGameboards, setupClickHandlers };

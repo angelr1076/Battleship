@@ -1,4 +1,4 @@
-const showMessage = (message, element, duration) => {
+const showMsgTimed = (message, element, duration = null) => {
   element.innerText = message;
   element.style.display = 'block';
 
@@ -7,4 +7,17 @@ const showMessage = (message, element, duration) => {
   }, duration);
 };
 
-export { showMessage };
+const showMsg = (message, element) => {
+  element.innerText = message;
+  element.style.display = 'block';
+};
+
+const reset = () => {
+  const resetBtn = document.getElementById('reset');
+
+  resetBtn.addEventListener('click', () => {
+    window.location.reload();
+  });
+};
+
+export { showMsgTimed, showMsg, reset };

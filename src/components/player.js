@@ -1,5 +1,5 @@
 import { createGameboard } from './gameBoard';
-import { showMessage } from './helpers';
+import { showMsgTimed, showMsg } from './helpers';
 
 const shipsObj = {
   names: [
@@ -31,7 +31,7 @@ const createPlayer = (name, isComputer = false) => {
     const attackResult = attack(enemyGameboard, x, y);
     const msg = document.querySelector('#message');
     if (attackResult) {
-      showMessage(`Your ${attackResult}'s been hit!`, msg, 1000);
+      showMsgTimed(`Your ${attackResult}'s been hit!`, msg, 1000);
     }
     return { x, y, attackResult };
   };
