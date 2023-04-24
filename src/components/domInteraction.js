@@ -4,6 +4,8 @@ import { showMessage } from './helpers';
 let currentShipIndex = 0;
 let currentOrientation = 'horizontal';
 let gameStarted = false;
+const changeOrientationBtn = document.getElementById('changeOriention');
+changeOrientationBtn.innerHTML = currentOrientation;
 
 const createGridElement = (player, x, y) => {
   const cell = document.createElement('div');
@@ -234,6 +236,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
 
         currentOrientation =
           currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+        changeOrientationBtn.innerHTML = currentOrientation;
 
         if (hoveredCell) {
           const x = parseInt(hoveredCell.dataset.x);
@@ -250,10 +253,10 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
       }
     });
 
-    const changeOrientationBtn = document.getElementById('changeOriention');
     changeOrientationBtn.addEventListener('click', () => {
       currentOrientation =
         currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+      changeOrientationBtn.innerHTML = currentOrientation;
 
       const hoveredCell = getCurrentlyHoveredCell(player1Grid);
       if (hoveredCell && !gameStarted) {
