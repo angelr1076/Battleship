@@ -1,10 +1,11 @@
 import { shipsObj } from './player';
-import { showMsgTimed, showMsg } from './helpers';
+import { showMsgTimed, showMsg, toggleModal } from './helpers';
 
 let currentShipIndex = 0;
 let currentOrientation = 'horizontal';
 let gameStarted = false;
 const changeOrientationBtn = document.getElementById('changeOriention');
+const instructBtn = document.getElementById('start');
 changeOrientationBtn.innerHTML = currentOrientation;
 
 const createGridElement = (player, x, y) => {
@@ -314,6 +315,19 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           currentOrientation,
         );
       }
+    });
+
+    instructBtn.addEventListener('click', () => {
+      const instructions = `
+        <h2>Instructions</h2>
+          <ol type="1">
+            <li>Set your ships by clicking on a Player 1 gameboard cell</li>
+            <li>Press the spacebar or orientation button to change your ship orientation</li>
+            <li>Once your ships are set, click on any of the computer's grid cells to attack its ship</li>
+            <li>The first player to sink all enemy ships wins the game</li>
+            <li><span style="color:#CD001A;">Good luck!</span></li>
+          </ol>`;
+      toggleModal(instructions);
     });
   };
 
