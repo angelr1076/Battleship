@@ -31,8 +31,9 @@ const updateBtnState = () => {
   }
 };
 
-const renderBoard = (player, containerSelector) => {
+const renderBoard = (player, containerSelector, secondaryContainer) => {
   const container = document.querySelector(containerSelector);
+  const playerContainer = document.querySelector(secondaryContainer);
   const grid = document.createElement('div');
   grid.classList.add('grid');
 
@@ -40,7 +41,7 @@ const renderBoard = (player, containerSelector) => {
   const shipsSunkCounter = document.createElement('div');
   shipsSunkCounter.classList.add('ships-sunk-counter');
   shipsSunkCounter.textContent = `Ships Sunk: 0`;
-  container.appendChild(shipsSunkCounter);
+  playerContainer.appendChild(shipsSunkCounter);
 
   for (let x = 0; x < 10; x++) {
     for (let y = 0; y < 10; y++) {
@@ -55,8 +56,8 @@ const renderBoard = (player, containerSelector) => {
 };
 
 const renderGameboards = (player1, player2) => {
-  renderBoard(player1, '#player1-board');
-  renderBoard(player2, '#player2-board');
+  renderBoard(player1, '#player1-board', '.player1-board__container');
+  renderBoard(player2, '#player2-board', '.player2-board__container');
 };
 
 const getCurrentlyHoveredCell = grid => {
@@ -92,10 +93,11 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           const shipSunk = attackResult.ship.isSunk();
           event.target.classList.add('hit');
           showMsgTimed(`Enemy's ${attackResult.name} hit!`, msg, 1000);
-
           if (shipSunk) {
             showMsgTimed(`Enemy's ${attackResult.name} sunk!`, msg, 1000);
           }
+        } else {
+          event.target.classList.add('miss');
         }
 
         if (enemy.gameboard.allShipsSunk()) {
@@ -111,7 +113,10 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             playerCell.classList.add('attacked');
             if (attackResult) {
               playerCell.classList.add('hit');
+            } else {
+              playerCell.classList.add('miss');
             }
+
             if (player.gameboard.allShipsSunk()) {
               toggleModal(
                 `<h2>Game Over! Your ships have been destroyed!</h2>`,
