@@ -38,12 +38,10 @@ const toggleModal = message => {
   }
 };
 
-// When user clicks on the close button, toggle the modal
 closeButton.onclick = () => {
   toggleModal();
 };
 
-// When user clicks anywhere outside of the modal, toggle it
 window.onclick = event => {
   if (event.target === modal) {
     toggleModal();

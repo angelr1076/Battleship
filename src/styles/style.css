@@ -4,7 +4,6 @@
 :root {
   --mukta: 'Mukta', sans-serif;
   --slab: 'Roboto Slab', serif;
-  /* Primary color palette */
   --white: #fff;
   --black: #000;
   --black-blur: #19222e;
@@ -15,7 +14,6 @@
   --lightgray: #e3e3e3;
   --cyan: #32cd80;
   --body-gradient: linear-gradient(147deg, #000000 0%, #04619f 74%);
-  /* Secondary palette */
   --vanilla: #f2ece4;
   --brickblue: #b2c9d8;
   --bluehover: #ccdfeb;
@@ -265,7 +263,6 @@ h2 {
   cursor: pointer;
 }
 
-/* media queries for mobile */
 @media screen and (max-width: 1200px) and (min-width: 1000px) {
   .grid {
     display: grid;
@@ -303,8 +300,6 @@ h2 {
   }
 
   .center-container {
-    /* background-image: none;
-    padding: none; */
     width: 400px;
   }
 }
