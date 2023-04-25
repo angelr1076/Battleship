@@ -1,5 +1,7 @@
 # Battleship - Test Driven Development
 
+[Play Battleship](https://battleship-boom.netlify.app/)
+
 ![Battleship Screenshot](./src/images/battleship-screenshot.png)
 
 ## The project requirements include:
