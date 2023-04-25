@@ -4,18 +4,17 @@
 
 ![Battleship Screenshot](./src/images/battleship-screenshot.png)
 
-## The project requirements include:
+# Description:
 
-1. Set up the project structure, including HTML, CSS, and JavaScript files, and ensure the game runs on a local development server.
+The project features a modern, browser-based version of the classic Battleship game, developed as part of The Odin Project's curriculum. The game allows players to strategically place their ships on a grid and take turns attacking their opponent's ships. The ultimate goal is to sink all of the opponent's ships before they sink yours.
 
-2. Create a 10x10 grid for each player, representing the game board. The grid should display ships and allow players to place them on the board. Implement drag-and-drop functionality for a user-friendly experience.
+Built with HTML, CSS, and JavaScript.
 
-3. Implement game logic to manage the state of the game, including player turns, hit and miss tracking, ship placement, and game-ending conditions.
+Key Features:
 
-4. Utilize JavaScript event listeners to handle user actions, such as clicking on the grid to fire at enemy ships, dragging and dropping ships for placement, and starting a new game.
-
-5. Provide visual feedback to the players, such as highlighting cells when a ship is hit, displaying a "miss" indicator, and updating the score.
-
-6. Ensure that the game is fully responsive, adjusting the layout and user interface elements for different screen sizes and devices.
-
-7. Test the application thoroughly, fixing any bugs or issues that arise.
+- Interactive user interface for placing ships and launching attacks on the opponent's grid.
+- Utilization of factory functions and the module pattern, as recommended by The Odin Project.
+- Responsive design that works seamlessly on various screen sizes and devices.
+- In-game messages and instructions to guide players through the game and provide updates on the game state.
+- Visually appealing color scheme and design that enhances the overall gaming experience.
+- Utilizes Webpack's module bundling along with module tests via Jest testing.
