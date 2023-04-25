@@ -20,9 +20,7 @@ const placeRandomShips = (player, shipObj) => {
       try {
         player.gameboard.placeShip(shipLength, shipName, x, y, orientation);
         placed = true;
-      } catch (error) {
-        // Ignore the error and try again with a different position and/or orientation
-      }
+      } catch (error) {}
     }
   }
 };

@@ -1,3 +1,6 @@
+const modal = document.getElementById('myModal');
+const closeButton = document.getElementsByClassName('close')[0];
+
 const showMsgTimed = (message, element, duration = null) => {
   element.innerText = message;
   element.style.display = 'block';
@@ -19,9 +22,6 @@ const reset = () => {
     window.location.reload();
   });
 };
-
-const modal = document.getElementById('myModal');
-const closeButton = document.getElementsByClassName('close')[0];
 
 const toggleModal = message => {
   const modalMsg = document.querySelector('.modal-message');

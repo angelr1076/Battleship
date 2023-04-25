@@ -99,7 +99,9 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
         }
 
         if (enemy.gameboard.allShipsSunk()) {
-          alert('Game Over! All ships have been sunk!');
+          toggleModal(
+            `<h2>Game Over! All enemy ships have been destroyed!</h2>`,
+          );
         } else {
           setTimeout(() => {
             const { x, y, attackResult } = enemy.attack(player.gameboard);
@@ -111,7 +113,9 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
               playerCell.classList.add('hit');
             }
             if (player.gameboard.allShipsSunk()) {
-              alert('Game Over! All ships have been sunk!');
+              toggleModal(
+                `<h2>Game Over! Your ships have been destroyed!</h2>`,
+              );
             }
 
             document.querySelector(
@@ -174,7 +178,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
           }
         }, 3000);
       } catch (error) {
-        alert(error.message);
+        toggleModal(`<h2>${error.message}</h2>`);
       }
     }
   });
@@ -325,6 +329,7 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
             <li>Press the spacebar or orientation button to change your ship orientation</li>
             <li>Once your ships are set, click on any of the computer's grid cells to attack its ship</li>
             <li>The first player to sink all enemy ships wins the game</li>
+            <li>You can close any modal by clicking anywhere on the screen or by clicking the 'X' icon</li>
             <li><span style="color:#CD001A;">Good luck!</span></li>
           </ol>`;
       toggleModal(instructions);
