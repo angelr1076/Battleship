@@ -1,6 +1,6 @@
 # Battleship - Test Driven Development
 
-[Battleship Screenshot]('./src/images/battleship-screenshot.png')
+![Battleship Screenshot](./src/images/battleship-screenshot.png)
 
 ## The project requirements include:
 
