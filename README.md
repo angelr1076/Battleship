@@ -1,5 +1,7 @@
 # Battleship - Test Driven Development
 
+[Battleship Screenshot]('./src/images/battleship-screenshot.png')
+
 ## The project requirements include:
 
 1. Set up the project structure, including HTML, CSS, and JavaScript files, and ensure the game runs on a local development server.
