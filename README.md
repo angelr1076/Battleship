@@ -18,3 +18,6 @@ Key Features:
 - Clear in-game messages and instructions to guide players through each stage of the game while providing real-time updates on the game state.
 - Visually stunning color scheme and design elements that elevate the overall gaming experience.
 - Utilization of Webpack's module bundling, complemented by comprehensive module tests via the Jest testing framework.
+- Improved the AI opponent's attack strategy. When the AI scores a 'hit' on a player's ship, it is now more likely to target adjacent slots in subsequent turns. This change makes the AI opponent more challenging, as it can now more effectively locate and sink the player's ships.
+
+Good luck, and enjoy the game!
