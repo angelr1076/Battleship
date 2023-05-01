@@ -344,4 +344,15 @@ const setupClickHandlers = (player, enemy, playerGridSelector) => {
   initPreviewHandlers(player1Grid);
 };
 
+const themeCheckbox = document.getElementById('theme-checkbox');
+const body = document.body;
+const header = document.querySelector('.header');
+
+themeCheckbox.addEventListener('change', () => {
+  body.classList.toggle('dark-theme');
+  body.classList.toggle('light-theme');
+  header.classList.toggle('dark-theme');
+  header.classList.toggle('light-theme');
+});
+
 export { shipsObj, showMsgTimed, renderGameboards, setupClickHandlers };

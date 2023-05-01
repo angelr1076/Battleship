@@ -41,6 +41,7 @@ body {
   color: var(--white);
   height: 100vh;
   width: 100vw;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 html {
@@ -56,6 +57,7 @@ html {
   backdrop-filter: blur(10px);
   padding: 20px;
   text-align: center;
+  transition: background-color 0.5s;
 }
 
 .header-text {
@@ -64,6 +66,7 @@ html {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--white);
+  transition: color 0.5s;
 }
 
 h2 {
@@ -295,6 +298,95 @@ h2 {
     width: 200px;
     font-size: 80%;
   }
+}
+
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px;
+}
+
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  position: relative;
+  width: 48px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: var(--white);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.4s;
+}
+
+.slider:before {
+  background-color: var(--black);
+  bottom: 4px;
+  content: '';
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: all 0.4s;
+  width: 16px;
+}
+
+input:checked + .slider {
+  background-color: var(--white);
+  color: var(--black-blur);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+body.dark-theme {
+  background-color: #111;
+  background-image: linear-gradient(147deg, var(--black) 0%, #2c3e50 74%);
+  color: var(--white);
+}
+
+body.light-theme {
+  background-color: var(--white);
+  background-image: linear-gradient(147deg, var(--white) 0%, #ecf0f1 74%);
+  color: var(--black);
+}
+
+header.dark-theme {
+  background-color: var(--black-blur);
+}
+
+header.light-theme {
+  background-color: var(--brickblue);
+}
+
+.light-theme .header {
+  background-color: var(--brickblue);
+  backdrop-filter: none;
+}
+
+.light-theme .header-text {
+  color: var(--black);
 }
 
 @media screen and (max-width: 1000px) {
