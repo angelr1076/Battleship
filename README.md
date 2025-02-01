@@ -1,6 +1,6 @@
 # Battleship - Test Driven Development
 
-[Play Battleship](https://battleship-boom.netlify.app/)
+[Play Battleship](https://battleship-boom.pages.dev/)
 
 ![Battleship Screenshot](./src/images/battleship-screenshot.png)
 
